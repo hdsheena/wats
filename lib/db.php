@@ -955,4 +955,16 @@ print queryBox($query);
 
 		return db_query($query);
 	}
+	
+	function getRoomsBySearch($roomID, $roomName)
+	{
+		$roomID = makeSafe($roomID);
+		$roomName = makeSafe(str_replace(" ", "%", $roomName));
+		
+		$query = "SELECT * FROM `room` 
+					JOIN `building` USING (`buildingID`)
+			WHERE `roomID` LIKE '%$roomID%' AND `roomName` LIKE '%$roomName%';";
+
+		return db_query($query);
+	}
 ?>
