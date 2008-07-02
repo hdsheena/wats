@@ -30,9 +30,9 @@
 		return;
 	}
 
-	if ($_REQUEST['add'] || $_REQUSET['newModelName'])
+	if ($_REQUEST['add'] || $_REQUEST['newModelName'])
 	{
-		$existing  = dbEnumerateRows(getModelByName($_REQUSET['newModelName']));
+		$existing  = dbEnumerateRows(getModelByName($_REQUEST['newModelName']));
 		if ($existing['modelName'])
 			print cautionBox("The model '{$_REQUSET['newModelName']}' is already in the system.");
 		else
