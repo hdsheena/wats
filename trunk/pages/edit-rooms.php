@@ -68,6 +68,14 @@
 		unset($_REQUEST);
 		$_REQUEST['view'] = "edit-rooms";
 	}
+	
+	if ($_REQUEST['action'] == "Add Room" || $_REQUEST['roomID'])
+	{	
+		addRoom($_REQUEST['roomID'], $_REQUEST['roomName'], $_REQUEST['floor'], $_REQUEST['buildingID']);
+		
+		unset($_REQUEST);
+		$_REQUEST['view'] = "edit-rooms";
+	}
 
 	$TITLE = "Rooms"; 
 	$BREADCRUMBS = array(array('name' => "Home", 'link'=>$CONFIG['webroot']),
@@ -112,4 +120,20 @@
 			"<a href='$delurl'><img src='{$CONFIG['themedir']}/{$CONFIG['theme']}/delete.png' alt='delete' title='Delete Room'></a>");
 	}
 	print mainContentBox("Rooms", NULL, Table::quick($list));
+	
+	
+	$buildings = getBuildings();
+	while ($building = dbEnumerateRows($buildings))
+		$buildingopts .= "<option value='{$building['buildingID']}'>{$building['buildingName']}</option>";
+	
+	$addform[] = array("Room ID:", "<input type='text' name='roomID'>");
+	$addform[] = array("Room Name:", "<input type='text' name='roomName'>");
+	$addform[] = array("&nbsp;");
+	$addform[] = array("Building:", "<select name='buildingID'>$buildingopts</select>");
+	$addform[] = array("Floor #:", "<input type='text' name='floor'>");
+	$addform[] = array("", "<input type='submit' name='action' value='Add Room'>");
+	
+	$addform = form("add", "POST", "", Table::quick($addform));
+	
+	print mainContentBox("Add Room", NULL, $addform);
 ?>

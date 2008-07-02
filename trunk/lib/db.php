@@ -669,6 +669,16 @@ print queryBox($query);
 		return db_query($query);
 	}
 	
+	function setPassword($personID, $password)
+	{
+		$personID = makeSafe($personID);
+		$password = makeSafe($password);
+		
+		$query = "UPDATE `person` SET `password`='$password' WHERE `personID`='$personID';";
+	
+		return db_query($query);
+	}
+	
 	function getDeviceTypes()
 	{
 		$query = "SELECT * FROM `type` ORDER BY `typeName`;";
@@ -778,6 +788,18 @@ print queryBox($query);
 	function getBuildings()
 	{
 		$query = "SELECT * FROM `building` ORDER BY `buildingName`;";
+		return db_query($query);
+	}
+	
+	function addRoom($roomID, $roomName, $floor, $buildingID)
+	{
+		$roomID = makeSafe($roomID);
+		$roomName = makeSafe($roomName);
+		$floor = makeSafe($floor);
+		$buildingID = makeSafe($buildingID);
+		
+		$query = "INSERT INTO `room` VALUES('$roomID', '$roomName', '$floor', '$buildingID');";
+				
 		return db_query($query);
 	}
 	

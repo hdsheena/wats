@@ -85,7 +85,7 @@ a:hover
 	bottom: 3em;
 	width: 95%;
 	
-	height: 
+	/*height:*/ 
 	
 	margin: 0;
 	padding: 0;

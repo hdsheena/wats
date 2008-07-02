@@ -51,5 +51,4 @@
 	if ($list)
 		print mainContentBox("Missing Devices", NULL, "<ul>$list</ul>");
 	
-	print mainContentBox("Test", new HTMLLink("Somewhere", "http://example.com", null, null), "Test box");
 ?>

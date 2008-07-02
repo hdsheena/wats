@@ -36,6 +36,33 @@
 			
 		$THEMECSS = "{$CONFIG['themedir']}/{$CONFIG['theme']}/theme.css.php";
 		$cssprint = "{$CONFIG['themedir']}/{$CONFIG['theme']}/theme-print.css.php";	
+		
+		unset($_REQUEST);
+		$_REQUEST['view'] = "userprefs";
+	}
+	
+	
+	if ($_REQUEST['setpass'] || $_REQUEST['newpass1'] || $_REQUEST['oldpass'])
+	{
+		if (pw_encode($_REQUEST['oldpass']) == $_SESSION['user']['password'])
+		{
+			if ($_REQUEST['newpass1'] == $_REQUEST['newpass2'])
+			{
+				$result = setPassword($_SESSION['user']['personID'], pw_encode($_REQUEST['newpass1']));
+				
+				if ($result !== false)
+					print successBox("Your password has been changed.");
+				else
+					print warningBox("Something went wront while changing your password.");
+			}
+			else
+				print warningBox("The new passwords you entered do not match.");
+		}
+		else
+			print warningBox("The old password you entered is incorrect.");
+			
+		unset($_REQUEST);
+		$_REQUEST['view'] = "userprefs";	
 	}
 
 
@@ -51,7 +78,13 @@
 
 	
 	
+	$passform[] = array("Old Password:", "<input type='password' name='oldpass'>");
+	$passform[] = array("", "");
+	$passform[] = array("New Password:", "<input type='password' name='newpass1'>");
+	$passform[] = array("Repeat New Password:", "<input type='password' name='newpass2'>");
+	$passform[] = array("", "<input type='submit' name='setpass' value='Set Password'>");
 	
+	$passform = form("pas", "POST", "", Table::quick($passform));
 	
 	print mainContentBox("Set Password", NULL, $passform);
 	
