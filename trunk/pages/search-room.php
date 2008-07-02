@@ -3,7 +3,7 @@
 	 * wats - Web-based Asset Tracking System
 	 * 
 	 * @author Ryan Illman (rillman@evergreenschool.org)
-	 * @created may 16, 2008
+	 * @created July 2, 2008
 	 * 
 	 * @copyright: (C)2008 The Evergreen School
 	 * 
@@ -24,29 +24,39 @@
 	if (!isset($_SESSION['user']) || ! isset ($CONFIG))
 		die("Please don't access this file directly. Use index.php");	
 
-	$TITLE = "Search People"; 
-	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['localwebroot']}"),
-						array('name' => "Search People"));
-
-	$searchform[] = array("ID:", "<input type='text' name='personID' value='{$_REQUEST['personID']}'>");
-	$searchform[] = array("Name:", "<input type='text' name='personName' value='{$_REQUEST['personName']}'>");
+	$TITLE = "Search Rooms"; 
+	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
+						array('name' => "Search Rooms"));
+						
+	
+	$searchform[] = array("ID:", "<input type='text' name='roomID' value='{$_REQUEST['roomID']}'>");
+	$searchform[] = array("Name:", "<input type='text' name='roomName' value='{$_REQUEST['roomName']}'>");
 	$searchform[] = array("", "<input type='submit' name='search' value='Search'>");
+	
 	
 	print mainContentBox("Search", 	NULL, form('search', 'GET', '', Table::quick($searchform)));
 	
-	if ($_REQUEST['personID'] || $_REQUEST['personName'])
+	if ($_REQUEST['roomID'] || $_REQUEST['roomName'])
 	{
-		$results = getPeopleBySearch($_REQUEST['personID'], $_REQUEST['personName']);
+		$results = getRoomsBySearch($_REQUEST['roomID'], $_REQUEST['roomName']);
 		
-		while ($person = dbEnumerateRows($results))
+		if ($results === false)
+		{
+			print cautionBox("No results match your search.");
+			return;
+		} 
+		
+		
+		$resultlist[] = array("Room ID", "Building Name", "Floor", "Room Name", "Details");
+		while ($room = dbEnumerateRows($results))
 		{
 			
-			$link = "<a href='{$CONFIG['webroot']}/index.php?view=person&amp;personID={$person['personID']}'><img src='{$CONFIG['themedir']}/{$CONFIG['theme']}/details.png' alt='details' title='Details'></a>";
+			$link = "<a href='{$CONFIG['webroot']}/index.php?view=room&amp;roomID={$room['roomID']}'><img src='{$CONFIG['themedir']}/{$CONFIG['theme']}/details.png' alt='details' title='Details'></a>";
 			
-			$resultlist[] = array($person['nameFirst'], $person['nameLast'], $link);
+			$resultlist[] = array($room['roomID'], $room['buildingName'], $room['floor'], $room['roomName'],  $link);
 		}
 		
-		$resultlist = Table::quick($resultlist);
+		$resultlist = Table::quick($resultlist, true);
 		print mainContentBox("Results", NULL, $resultlist);
-	}
+	}					
 ?>
