@@ -95,7 +95,7 @@
 	
 
 
-	startPage("Inventory System Login","Inventory system Login", $BREADCRUMBS,  $COMMONCSS, $THEMECSS, $cssprint, $JSSRC1,$JSSRC2, $ONLOAD);
+	startPage("wats Login","wats Login", $BREADCRUMBS,  $COMMONCSS, $THEMECSS, $cssprint, $JSSRC1,$JSSRC2, $ONLOAD);
 
 	if ($error)
 		print warningBox($error);

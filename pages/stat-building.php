@@ -3,7 +3,7 @@
 	 * wats - Web-based Asset Tracking System
 	 * 
 	 * @author Ryan Illman (rillman@evergreenschool.org)
-	 * @created Mar 5, 2008
+	 * @created may 27, 2008
 	 * 
 	 * @copyright: (C)2008 The Evergreen School
 	 * 
@@ -19,29 +19,12 @@
 	 * You should have received a copy of the GNU General Public License
 	 * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
 	 */
-	session_name("inventory");
-	session_start();
-	
-	define("DEBUG", true);
-	
-	$CONFIG['db-hostname'] = "localhost";
-	$CONFIG['db-username'] = "root";
-	$CONFIG['db-password'] = "";
-	$CONFIG['db-database'] = "inventory";
-	
-	if (! function_exists("db_query"))
-		require_once ("lib/db.php");
-	
-	$entities = db_query("SELECT * FROM `config`");
-	while ($entry = dbEnumerateRows($entities))
-		$CONFIG[$entry['key']] = $entry['value'];
-		
-	if ($_SESSION['user']['personID'])
-	{
-		$user = makeSafe($_SESSION['user']['personID']);
-		$prefs = db_query("SELECT * FROM `preference` WHERE `personID`='$user';");
-		while ($pref = dbEnumerateRows($prefs))
-			$CONFIG[$pref['preference']] = $pref['value'];
-	}		
+	 
+	 //assume we've been included in an index.php. if not, bail
+	if (!isset($_SESSION['user']) || ! isset ($CONFIG))
+		die("Please don't access this file directly. Use index.php");	
 
+	$TITLE = "Devices By Building"; 
+	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['localwebroot']}"),
+						array('name' => "Devices By Building"));
 ?>
