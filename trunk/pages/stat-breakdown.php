@@ -21,7 +21,7 @@
 	 */
 	 
 	 //assume we've been included in an index.php. if not, bail
-	if (!isset($_SESSION['user']) && ! isset ($CONFIG))
+	if (!isset($_SESSION['user']) || ! isset ($CONFIG))
 		die("Please don't access this file directly. Use index.php");	
 
 	$TITLE = "Deployed Devices"; 
