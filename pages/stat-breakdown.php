@@ -25,7 +25,7 @@
 		die("Please don't access this file directly. Use index.php");	
 
 	$TITLE = "Deployed Devices"; 
-	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['localwebroot']}"),
+	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "Deployed Devices"));
 						
 						

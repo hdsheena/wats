@@ -25,7 +25,7 @@
 		die("Please don't access this file directly. Use index.php");	
 
 	$TITLE = "Search People"; 
-	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['localwebroot']}"),
+	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "Search People"));
 
 	$searchform[] = array("ID:", "<input type='text' name='personID' value='{$_REQUEST['personID']}'>");

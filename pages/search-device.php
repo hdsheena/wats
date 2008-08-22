@@ -25,7 +25,7 @@
 		die("Please don't access this file directly. Use index.php");
 
 	$TITLE = "Device Search"; 
-	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['localwebroot']}"),
+	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "Device Search"));
 						
 						
