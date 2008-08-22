@@ -29,7 +29,7 @@
 
 
 	$TITLE = "{$model['modelName']} from {$model['vendorName']}"; 
-	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['localwebroot']}"),
+	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "TEMPLATE TITLE"));
 						
 						

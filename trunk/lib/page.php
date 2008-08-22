@@ -344,7 +344,7 @@
 		else if ($location =="" && strtoupper($method) == 'GET')
 		{
 			//preserve mode and view. others will need a hidden form element
-			$location = $CONFIG['localwebroot'];
+			$location = $CONFIG['webroot'];
 			$contents .= "<input type='hidden' name='view' value='{$_REQUEST['view']}'>";
 		}
 		

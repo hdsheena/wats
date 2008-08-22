@@ -90,7 +90,7 @@
 
 	//keep track of browsing history
 	//mostly used to replace the unreliable $_SERVER['HTTP_REFERER']
-	$_SESSION['history'][] = $CONFIG['localwebroot'] ."/index.php?" . $_SERVER['QERRY_STRING'] ;
+	$_SESSION['history'][] = $CONFIG['webroot'] ."/index.php?" . $_SERVER['QERRY_STRING'] ;
 
 	
 

@@ -43,9 +43,19 @@
 		closeOutstandingAssignmentsForDevice($_REQUEST['deviceID']);
 		
 		if ($_REQUEST['to'] == "room")
+		{
+			if ($_REQUEST['roomID'])
+				$_REQUEST['room'] = $_REQUEST['roomID'];
+			
 			assignDeviceToRoom($_REQUEST['deviceID'], $_REQUEST['room']);
+		}
 		else if ($_REQUEST['to'] == "person")
+		{
+			if ($_REQUEST['personID'])
+				$_REQUEST['person'] = $_REQUEST['personID'];
+				
 			assignDeviceToPerson($_REQUEST['deviceID'], $_REQUEST['person']);
+		}
 			
 		setDeviceStatus($_REQUEST['deviceID'], 1);	
 		
@@ -208,8 +218,8 @@
 		
 		
 		
-		$reassign[] = array("To Room:", "<input type='radio' id='toroom' name='to' value='room'><select name='room' onchange='document.getElementById(\"toroom\").checked=true;'>$roomopts</select>");
-		$reassign[] = array("To Person:", "<input type='radio' id='toperson' name='to' value='person'><select name='person' onchange='document.getElementById(\"toperson\").checked=true;'>$peopleopts</select>");
+		$reassign[] = array("To Room:", "<input type='radio' id='toroom' name='to' value='room'><select name='room' onchange='document.getElementById(\"toroom\").checked=true;'>$roomopts</select>", "or", "<input type='text' name='roomID' onchange='document.getElementById(\"toroom\").checked=true;'>");
+		$reassign[] = array("To Person:", "<input type='radio' id='toperson' name='to' value='person'><select name='person' onchange='document.getElementById(\"toperson\").checked=true;'>$peopleopts</select>", "or", "<input type='text' name='personID' onchange='document.getElementById(\"toperson\").checked=true;'>");
 		$reassign[] = array("","<input type='submit' name='reassign' value='Reassign'>"); 
 		
 		$reassign = form('reassign', 'POST', '', Table::quick($reassign));
