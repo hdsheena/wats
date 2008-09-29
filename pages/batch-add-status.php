@@ -32,6 +32,7 @@
 
 	$ONLOAD="document.form.focusme.focus();";
 
+	$_REQUEST['modelID'] = ($_REQUEST['modelIDtxt'])?$_REQUEST['modelIDtxt']:$_REQUEST['modelIDdrop'];
 
 	if ($_REQUEST['statusID'])
 	{
@@ -83,9 +84,9 @@
 			$modelform[] = array
 			(
 				"Model ID:",
-				"<input id='focusme' type='text' name='modelID'>",
+				"<input id='focusme' type='text' name='modelIDtxt'>",
 				"OR",
-				"<select name='modelID'>$modelopts</select>"
+				"<select name='modelIDdrop'>$modelopts</select>"
 			);
 			$modelform[] = array("", "<input type='submit' name='submit' value='Next'>");
 		

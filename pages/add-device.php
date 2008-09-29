@@ -34,6 +34,8 @@
 		}
 		else
 		{
+			$_REQUEST['modelID'] = ($_REQUEST['modelIDtxt'])?$_REQUEST['modelIDtxt']:$_REQUEST['modelIDdrop'];
+			
 			if ($_REQUEST['value'] == "" || !is_numeric($_REQUEST['value']))
 			{
 				$model= dbEnumerateRows(getModel($_REQUEST['modelID']));
@@ -89,7 +91,7 @@
 	$form[] = array("", "");
 	$form[] = array("Device Name:", "<input type='text' name='deviceName'>");
 	$form[] = array("", "");
-	$form[] = array("Model", "<input type='text' name='modelID'>", "OR", "<select name='modelID'>$modelopts</select>");
+	$form[] = array("Model", "<input type='text' name='modelIDtxt'>", "OR", "<select name='modelIDdrop'>$modelopts</select>");
 	$form[] = array("", "");
 	$form[] = array("Value", "<input type='text' name='value'>");
 	$form[] = array("Date Purchased", "<input type='text' name='datePurchased'>");
