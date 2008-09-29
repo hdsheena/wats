@@ -32,6 +32,8 @@
 
 	$ONLOAD="document.form.focusme.focus();";
 
+	$_REQUEST['modelID'] = ($_REQUEST['modelIDtxt'])?$_REQUEST['modelIDtxt']:$_REQUEST['modelIDdrop'];
+
 
 	if ($_REQUEST['roomID'])
 	{
@@ -60,7 +62,7 @@
 			$_REQUEST['submit'] = "";
 		}
 		
-		if ($_REQUEST['deviceID'] && $_REQUEST['modelID'] && ! $_REQUEST['deviceName'])
+		if ($_REQUEST['deviceID'] && ($_REQUEST['modelID']) && ! $_REQUEST['deviceName'])
 		{
 			$BREADCRUMBS[1]['link']="{$CONFIG['webroot']}/?view=batch-add-room";
 			$BREADCRUMBS[2]['name']="Step 4 - Device Name";
@@ -78,16 +80,16 @@
 			$BREADCRUMBS[2]['name']="Step 3 - Model ID";
 			
 			$models = getModels();
-			$modelopts = "<option value=''> </option>";
+			$modelopts = "<option value=''></option>";
 			while ($model = dbEnumerateRows($models))
 				$modelopts .= "<option value='{$model['modelID']}'>{$model['vendorName']} {$model['typeName']} {$model['modelName']}</option>";
 			
 			$modelform[] = array
 			(
 				"Model ID:",
-				"<input id='focusme' type='text' name='modelID'>",
+				"<input id='focusme' type='text' name='modelIDtxt'>",
 				"OR",
-				"<select name='modelID'>$modelopts</select>"
+				"<select name='modelIDdrop'>$modelopts</select>"
 			);
 			$modelform[] = array("", "<input type='submit' name='submit' value='Next'>");
 		
