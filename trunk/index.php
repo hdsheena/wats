@@ -86,17 +86,17 @@
 	}
 
 
-	startPage("$TITLE: Inventory System",$TITLE, $BREADCRUMBS, $COMMONCSS, $THEMECSS, $cssprint, $JSSRC1,$JSSRC2, $ONLOAD);
+	startPage("$TITLE: WATS",$TITLE, $BREADCRUMBS, $COMMONCSS, $THEMECSS, $cssprint, $JSSRC1,$JSSRC2, $ONLOAD);
 
 	if (DEBUG)
 		print cautionBox("Debug mode is on.");
-		
+			
 	print $body;
 
 	$links = array
 	(
 		new HTMLLink("Preferences", "{$CONFIG['webroot']}/?view=userprefs", "", ""),
-		"<a href='http://wats.illman.net'>wats</a> &copy;2008 The Evergreen School, released under the <a href='http://www.gnu.org/licenses/gpl-3.0.html'>GNU GPL v3</a>",
+		"<a href='https://sourceforge.net/projects/wats/'>wats</a> &copy;2008 The Evergreen School, released under the <a href='http://www.gnu.org/licenses/gpl-3.0.html'>GNU GPL v3</a>",
 	);
 
 	endPage($links, $MENU, $SIDEBOXES);		

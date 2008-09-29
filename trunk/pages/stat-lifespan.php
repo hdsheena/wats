@@ -89,9 +89,9 @@
 	print mainContentBox("Newest and Oldest Devices", NULL, Table::quick($newoldlist, true));	
 	
 	$total = dbEnumerateRows(db_query("SELECT COUNT(deviceID) from `device` WHERE `datePurchased` IS NOT NULL AND `dateRemoved` IS NULL;"));
-	$total[1] = $total[0]/2;   //median position
-	$total[2] = $total[0]/4;   //lower quartile position
-	$total[3] = $total[0]/4*3; //upper quartile position
+	$total[1] = (int)($total[0]/2);   //median position
+	$total[2] = (int)($total[0]/4);   //lower quartile position
+	$total[3] = (int)($total[0]/4*3); //upper quartile position
 	
 	$median = dbEnumerateRows(db_query("SELECT datePurchased FROM `device` WHERE `datePurchased` IS NOT NULL AND `dateRemoved` IS NULL ORDER BY `datePurchased` LIMIT 1 OFFSET {$total[1]} ;"));
 	$min = dbEnumerateRows(db_query("SELECT MIN(datePurchased) FROM `device` WHERE `datePurchased` IS NOT NULL AND `dateRemoved` IS NULL ORDER BY `datePurchased` LIMIT 1 OFFSET {$total[1]} ;"));
@@ -99,5 +99,22 @@
 	$uq = dbEnumerateRows(db_query("SELECT datePurchased FROM `device` WHERE `datePurchased` IS NOT NULL AND `dateRemoved` IS NULL ORDER BY `datePurchased` LIMIT 1 OFFSET {$total[3]} ;"));
 	$lq = dbEnumerateRows(db_query("SELECT datePurchased FROM `device` WHERE `datePurchased` IS NOT NULL AND `dateRemoved` IS NULL ORDER BY `datePurchased` LIMIT 1 OFFSET {$total[2]} ;"));
 	
-	print mainContentBox("Age Plot", NULL, "<img src='{$CONFIG['webroot']}/lib/boxplot.php' alt='boxplot' title='Quantity by Age'>");				
+	//print mainContentBox("Age Plot", NULL, "<img src='{$CONFIG['webroot']}/lib/boxplot.php' alt='boxplot' title='Quantity by Age'>");	
+	
+	
+	$query = "SELECT ROUND((UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(datePurchased)) / 2592000) as age, COUNT(deviceID) FROM `device` 
+		WHERE `datePurchased` IS NOT NULL AND `dateRemoved` IS NULL 
+		GROUP BY `age`
+		ORDER BY `datePurchased`";
+
+	$q = "xlabel=Age+(Months)&ylabel=Number+of+Devices";
+
+	$deviceages = db_query($query);
+	while ($age = dbEnumerateRows($deviceages))
+	{
+		$q .= "&X[".(int)($age[0])."]={$age[1]}" ;
+	}
+	
+	
+	print mainContentBox("Age Distribution", NULL, "<img src='{$CONFIG['webroot']}/lib/graph.php?$q' alt='plot' title='Quantity by Age'>");			
 ?>
