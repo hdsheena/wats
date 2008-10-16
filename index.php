@@ -8,16 +8,16 @@
 	 * @copyright: (C)2008 The Evergreen School
 	 * 
 	 * This program is free software: you can redistribute it and/or modify 
-	 * it under the terms of the GNU General Public License version 3 as published by
+	 * it under the terms of the GNU Affero General Public License version 3 as published by
 	 * the Free Software Foundation.
 	 * 
 	 * This program is distributed in the hope that it will be useful,
 	 * but WITHOUT ANY WARRANTY; without even the implied warranty of
 	 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	 * GNU General Public License for more details.
+	 * GNU Affero General Public License for more details.
 	 * 
-	 * You should have received a copy of the GNU General Public License
-	 * along with this program.  If not, see <http://www.gnu.org/licenses/gpl-3.0.html>. 
+	 * You should have received a copy of the GNU Affero General Public License
+	 * along with this program.  If not, see <http://www.gnu.org/licenses/agpl-3.0.html>.
 	 */
 	
 	require_once("config.php"); 
@@ -96,7 +96,7 @@
 	$links = array
 	(
 		new HTMLLink("Preferences", "{$CONFIG['webroot']}/?view=userprefs", "", ""),
-		"<a href='https://sourceforge.net/projects/wats/'>wats</a> &copy;2008 The Evergreen School, released under the <a href='http://www.gnu.org/licenses/gpl-3.0.html'>GNU GPL v3</a>",
+		"<a href='https://sourceforge.net/projects/wats/'>wats</a> &copy;2008 The Evergreen School, released under the <a href='http://www.gnu.org/licenses/agpl-3.0.html'>GNU AGPL v3</a>",
 	);
 
 	endPage($links, $MENU, $SIDEBOXES);		
