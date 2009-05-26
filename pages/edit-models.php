@@ -24,7 +24,7 @@
 	if (!isset($_SESSION['user']) && ! isset ($CONFIG))
 		die("Please don't access this file directly. Use index.php");	
 
-	if (! in_arraY("admin", $_SESSION['user']['roles']))
+	if (! in_array("admin", $_SESSION['user']['roles']))
 	{
 		print warningBox("You are not authorized to view this page.");
 		return;
