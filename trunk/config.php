@@ -22,7 +22,7 @@
 	session_name("inventory");
 	session_start();
 	
-	define("DEBUG", false);
+	define("DEBUG", true);
 	
 	$CONFIG['db-hostname'] = "localhost";
 	$CONFIG['db-username'] = "root";

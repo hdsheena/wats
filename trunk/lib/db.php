@@ -739,6 +739,24 @@ print queryBox($query);
 		return db_query($query);
 	}
 	
+	function addStatus($statusName)
+	{
+		$statusName = makeSafe($statusName);
+		
+		$query = "INSERT INTO status (statusName) VALUES ('$statusName');";
+		
+		return db_query($query);
+	}
+	
+	function deleteStatus($statusID)
+	{
+		$statusID = makeSafe($statusID);
+		
+		$query = "DELETE FROM status WHERE statusID='$statusID';";
+	
+		return db_query($query);
+	}
+	
 	
 	function getDevicesAssignedToRoom($roomID)
 	{
@@ -781,6 +799,24 @@ print queryBox($query);
 					JOIN `type` USING (`typeID`)
 					JOIN `status` USING (`statusID`)
 				WHERE `personID`='$personID' and `assignment`.`dateRemoved` IS NULL;";
+		
+		return db_query($query);
+	}
+	
+	function getDevicesByBuilding($buildingID)
+	{
+		$buildingID = makeSafe($buildingID);
+		
+		$query = "SELECT * FROM `assignment` 
+					JOIN `device` USING(`deviceID`) 
+					JOIN `model` USING(`modelID`)
+					JOIN `vendor` USING(`vendorID`)
+					JOIN `type` USING (`typeID`)
+					JOIN `status` USING (`statusID`)
+					LEFT OUTER JOIN `person` USING (`personID`)
+					JOIN `room` ON (`assignment`.`roomID`=`room`.`roomID` OR `person`.`roomID`=`room`.`roomID`) 
+					JOIN `building` USING (`buildingID`)
+				WHERE `buildingID`='$buildingID' and `assignment`.`dateRemoved` IS NULL;";
 		
 		return db_query($query);
 	}
@@ -851,6 +887,20 @@ print queryBox($query);
 		$supportURL = makeSafe($supportURL);
 		
 		$query = "INSERT INTO `vendor` VALUES (NULL, '$name', '$phone', '$supportPhone', '$supportURL');";
+			
+		return db_query($query);
+	}
+	
+	function changeVendor($vendorID, $name, $phone, $supportPhone, $supportURL)
+	{
+		$vendorID = makeSafe($vendorID);
+		$name = makeSafe($name);
+		$phone = makeSafe($phone);
+		$supportPhone = makeSafe($supportPhone);
+		$supportURL = makeSafe($supportURL);
+		
+		$query = "UPDATE `vendor` SET `vendorName`='$name', `vendorPhone`='$phone', `supportPhone`='$supportPhone', `supportURL`='$supportURL' 
+					WHERE `vendorID`='$vendorID';";
 			
 		return db_query($query);
 	}
@@ -939,8 +989,16 @@ print queryBox($query);
 					JOIN `vendor` USING(`vendorID`)
 					JOIN `type` USING (`typeID`)
 					JOIN `status` USING (`statusID`)
-				WHERE (`deviceID`='$deviceID' AND `statusID`='$statusID') 
-					OR ((NOT '$deviceName'='') AND `deviceName` LIKE '%$deviceName%' AND `statusID`='$statusID')"; 
+				WHERE 1=1 ";
+				
+		if ($deviceID)
+			$query .= " AND (`deviceID`='$deviceID' OR `assetTag`='$deviceID') ";
+			
+		if ($deviceName)
+			$query .= " AND (`deviceName` LIKE '%$deviceName%') ";
+			
+		if ($statusID)
+			$query .= " AND (`statusID`='$statusID') "; 
 		
 		return db_query($query);
 	}

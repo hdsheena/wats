@@ -62,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `status` (
 	
 	`statusName`	VARCHAR(50) NOT NULL,
 
-	PRIMARY KEY (`statusID`)
+	PRIMARY KEY (`statusID`),
+	UNIQUE KEY (`statusName`)
 	
 	
 ) ENGINE = InnoDB;

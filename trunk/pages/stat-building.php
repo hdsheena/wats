@@ -27,4 +27,36 @@
 	$TITLE = "Devices By Building"; 
 	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "Devices By Building"));
+						
+	
+	$buildings = getBuildings();
+	while ($building = dbEnumerateRows($buildings))
+	{		
+		$devs = getDevicesByBuilding($building['buildingID']);
+		
+		$stats = array();
+		$num = 0;
+		while ($dev = dbEnumerateRows($devs))
+		{
+			$stats[$dev['typeName']] ++;
+			$num++;
+		}
+		
+		$pie="";
+		$pieurl="";
+		if ($num)
+		{
+			$i=0;
+			foreach ($stats as $name=>$stat)
+			{
+				$i++;
+				$percent = round(100*$stat/$num, 1);
+				$pieurl .= "&slice[$i][size]=$percent&slice[$i][name]=$name";
+			}
+		}
+		
+		$pie = "<img style='float: right; clear:both' src='{$CONFIG['webroot']}/lib/piechart.php?q$pieurl' alt='piechart'>";
+		
+		print mainContentBox($building['buildingName'], NULL, print_r($stats, true) . $pie);
+	} 					
 ?>

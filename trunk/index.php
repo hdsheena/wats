@@ -89,7 +89,7 @@
 	startPage("$TITLE: WATS",$TITLE, $BREADCRUMBS, $COMMONCSS, $THEMECSS, $cssprint, $JSSRC1,$JSSRC2, $ONLOAD);
 
 	if (DEBUG)
-		print cautionBox("Debug mode is on.");
+		print cautionBox("Debug mode is on. Perhaps this is a development install?");
 			
 	print $body;
 

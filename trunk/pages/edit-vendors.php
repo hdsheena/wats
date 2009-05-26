@@ -39,7 +39,7 @@
 	
 	if ($_REQUEST['add'])
 	{
-		if (strpos($_REQUEST['supportURL'], "://") === false)
+		if (strlen($_REQUEST['supportURL']) > 0 && strpos($_REQUEST['supportURL'], "://") === false)
 			$_REQUEST['supportURL'] = "http://" . $_REQUEST['supportURL'];
 		
 		$existing = dbEnumerateRows(getVendorByName(trim($_REQUEST['vendorName'])));
@@ -57,6 +57,34 @@
 						 array('name'=>"Manage Vendors"));
 	
 
+	if ($_REQUEST['action'] == 'edit' && $_REQUEST['editVendorName'])
+	{
+		$result = changeVendor($_REQUEST['vendor'], $_REQUEST['editVendorName'] , $_REQUEST['editVendorPhone'], $_REQUEST['editSupPhone'], $_REQUEST['editSupURL']);
+		
+		if ($result !== false && affectedRows($result))
+		{
+			unset ($_REQUEST['action']);
+			print successBox("Vendor saved.");
+		}
+		else
+			print warningBox("Error saving vendor.");
+	}
+
+	if ($_REQUEST['action'] == 'edit')
+	{	
+		$vendor = dbEnumerateRows(getVendor($_REQUEST['vendor']));
+		
+		$edit[] = array("<label for='editVendorName'>Vendor Name:</label>", "<input type='text' name='editVendorName' id='editVendorName' value='".htmlentities($vendor['vendorName'], ENT_QUOTES)."'>");
+		$edit[] = array("<label for='editVendorPhone'>Phone:</label>", "<input type='text' name='editVendorPhone' id='editVendorPhone' value='".htmlentities($vendor['vendorPhone'], ENT_QUOTES)."'>");
+		$edit[] = array("<label for='editSupPhone'>Support Phone:</label>", "<input type='text' name='editSupPhone' id='editSupPhone' value='".htmlentities($vendor['supportPhone'], ENT_QUOTES)."'>");
+		$edit[] = array("<label for='editSupURL'>Support URL:</label>", "<input type='text' name='editSupURL' id='editSupURL' value='".htmlentities($vendor['supportURL'], ENT_QUOTES)."'>");
+		$edit[] = array("<input type='hidden' name='vendor' value='{$_REQUEST['vendor']}'>", "<input type='submit' name='save' value='Save'>");
+		
+		print mainContentBox("Edit Vendor '{$vendor['vendorName']}'", NULL, form('edit', 'POST', '', Table::quick($edit)));
+	}
+
+
+
 	$vendors = getVendors();
 	
 	$vendorlist[] = array("ID", "Name", "Phone", "Support Phone", "Support Link", "Edit");
@@ -68,7 +96,9 @@
 			$vendor['vendorName'],
 			$vendor['vendorPhone'],
 			$vendor['supportPhone'],
-			"<a href='{$vendor['supportURL']}' target='_new'>Support</a>"
+			($vendor['supportURL'] ? "<a href='{$vendor['supportURL']}' target='_new'>Support</a>" : ""),
+			"<a href='{$CONFIG['webroot']}/?view=edit-vendors&amp;action=edit&amp;vendor={$vendor['vendorID']}'>
+			  <img src='{$CONFIG['themedir']}/{$CONFIG['theme']}/edit.png' alt='edit'></a>"
 		); 
 	}
 	
