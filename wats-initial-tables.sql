@@ -71,13 +71,14 @@ CREATE TABLE IF NOT EXISTS `status` (
 REPLACE INTO `type`   VALUES (1, "Desktop Computer"), (2, "Laptop Computer"), (3, "Projector");
 REPLACE INTO `status` VALUES (1, "Active"), (2, "Inventory"), (3, "Recycled"), (4, "Lost"), (5, "Stolen");
 REPLACE INTO `vendor` VALUES (1, "Dell", "", "", "http://support.dell.com");
-REPLACE INTO `model`  VALUES (1, "Latitude D600", 2, 1);
+REPLACE INTO `model`  VALUES (1, "Latitude D600", 300, 2, 1);
 
 CREATE TABLE IF NOT EXISTS `building` (
 	`buildingID`	BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 	`buildingName` VARCHAR(50),
 	
-	PRIMARY KEY(`buildingID`)
+	PRIMARY KEY(`buildingID`),
+	UNIQUE KEY (`buildingName1`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `room` (
@@ -127,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `device` (
 	`value`		DECIMAL(10,2)NULL DEFAULT NULL,
 	
 	`dateInventoried` DATE,
-	`inventoriedBy` BIGINT(20) UNSIGNED NOT NULL
+	`inventoriedBy` VARCHAR(20) NOT NULL,
 	`datePurchased`	DATE DEFAULT NULL,
 	`dateRemoved`	DATE DEFAULT NULL,
 	`statusID`	BIGINT(20) UNSIGNED NULL DEFAULT 1,
