@@ -62,6 +62,7 @@
 		$tmp = new MenuItem("System Functions", "");
 		
 		$tmp->addChild(new MenuItem("Manage New Device Queue", "{$CONFIG['webroot']}/?view=device-queue"));
+        $tmp->addChild(new MenuItem("Manage Buildings", "{$CONFIG['webroot']}/?view=edit-buildings"));
 		$tmp->addChild(new MenuItem("Manage Rooms", "{$CONFIG['webroot']}/?view=edit-rooms"));
 		$tmp->addChild(new MenuItem("Manage Pepole", "{$CONFIG['webroot']}/?view=edit-people"));
 		$tmp->addChild(new MenuItem("Manage Device Types", "{$CONFIG['webroot']}/?view=edit-device-types"));

@@ -27,7 +27,7 @@
 	$CONFIG['db-hostname'] = "localhost";
 	$CONFIG['db-username'] = "root";
 	$CONFIG['db-password'] = "";
-	$CONFIG['db-database'] = "inventory";
+	$CONFIG['db-database'] = "wats";
 	
 	if (! function_exists("db_query"))
 		require_once ("lib/db.php");
