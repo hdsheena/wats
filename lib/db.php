@@ -50,6 +50,7 @@
 				if (!$CONFIG['dbresource'] instanceof mysqli)
 				{
 					print warningBox(mysqli_error());
+				}
 				break;
 		}
 
