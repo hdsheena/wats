@@ -37,7 +37,7 @@
 		$statusopts .= "<option value='{$status['statusID']}' $sel>{$status['statusName']}</option>";
 	}				
 						
-	$searchform[] = array("Device ID:", "<input type='text' name='deviceID' value='{$_REQUEST['deviceID']}'>");
+	$searchform[] = array("Device ID or Asset Tag:", "<input type='text' name='deviceID' value='{$_REQUEST['deviceID']}'>");
 	$searchform[] = array("Device Name:", "<input type='text' name='deviceName' value='{$_REQUEST['deviceName']}'>");
 	$searchform[] = array("Device Status:", "<select name='statusID'>$statusopts</select>");
 	$searchform[] = array("", "<input type='submit' name='search' value='Search'>");
