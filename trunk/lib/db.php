@@ -33,18 +33,22 @@
 	{
 		global $CONFIG;
 
-		$CONFIG['db-type'] = "mysqli";
 
+		
 		switch ($CONFIG['db-type'])
 		{
 			case 'mysql';
 				$CONFIG['dbresource'] = mysql_connect($CONFIG['db-hostname'], $CONFIG['db-username'], $CONFIG['db-password']);
-				if (! mysql_select_db($CONFIG['db-database']) && DEBUG)
+				if (! mysql_select_db($CONFIG['db-database']))
+				{
 					print warningBox(mysql_error());
+					die("Database unavailable.");
+				}
 				break;
 			case 'mysqli';
 				$CONFIG['dbresource'] = new mysqli($CONFIG['db-hostname'], $CONFIG['db-username'], $CONFIG['db-password'], $CONFIG['db-database']);
 				if (!$CONFIG['dbresource'] instanceof mysqli)
+				{
 					print warningBox(mysqli_error());
 				break;
 		}
@@ -330,7 +334,7 @@
 				JOIN `type` USING (`typeID`)
 				JOIN `status` USING (`statusID`)
 				JOIN `person` ON (`inventoriedBy` = `personID`)
-			WHERE `deviceID`='$deviceID';";
+			WHERE `deviceID`='$deviceID' OR `assetTag`='$deviceID';";
 
 		return db_query($query);
 	}
@@ -1015,6 +1019,7 @@ print queryBox($query);
 
 	function getDevicesBySearch($deviceID, $deviceName, $statusID)
 	{
+		
 		$deviceID = makeSafe($deviceID);
 		$deviceName = makeSafe($deviceName);
 		$statusID = makeSafe($statusID);
