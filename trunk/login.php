@@ -50,7 +50,7 @@
 					$_SESSION['user']['roles'][] =  $role['roleID'];
 		
 				
-				header("Location: index.php");
+				header("Location: {$CONFIG['webroot']}/index.php");
 				return;
 			}
 			else
@@ -68,7 +68,7 @@
 	//login check
 	if ((isset($_SESSION['user']['username'])))
 	{
-		header ("Location: {$CONFIG['webroot']}/login.php");
+		header ("Location: {$CONFIG['webroot']}/index.php");
 		die();
 	}
 	

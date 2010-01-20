@@ -44,6 +44,7 @@
 	//login check
 	if ((! isset($_SESSION['user']['username'])))
 	{
+		session_destroy();
 		header ("Location: {$CONFIG['webroot']}/login.php");
 		die();
 	}
