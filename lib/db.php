@@ -653,6 +653,19 @@ print queryBox($query);
 		return db_query($query);
 	}
 
+	function addPerson($ID, $firstName, $lastName, $username, $password)
+	{
+		$ID = makeSafe($ID);
+		$firstName = makeSafe($firstName);
+		$lastName = makeSafe($lastName);
+		$username = ($username) ? makeSafe($username) : "";
+		$password = ($password) ? makeSafe($password) :"*";
+		
+		$query = "INSERT INTO person (personID, nameFirst, nameLast, username, password) values ('$ID', '$firstName', '$lastName', '$username', '$passwordl')";
+		
+		return db_query($query);
+	}
+
 	function getPreferences($personID)
 	{
 		$personID = makeSafe($personID);
