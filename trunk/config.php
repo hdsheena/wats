@@ -27,7 +27,7 @@
 	$CONFIG['db-hostname'] = "localhost";
 	$CONFIG['db-username'] = "root";
 	$CONFIG['db-password'] = "";
-	$CONFIG['db-database'] = "wats";
+	$CONFIG['db-database'] = "inventory";
 	$CONFIG['db-type'] = "mysqli";
 	
 	if (! function_exists("db_query"))

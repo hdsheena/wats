@@ -24,6 +24,20 @@
 	if (!isset($_SESSION['user']) && ! isset ($CONFIG))
 		die("Please don't access this file directly. Use index.php");	
 
+
+	if ($_REQUEST['add'] || $_REQUEST['ID'])
+	{
+		$result = addPerson($_REQUEST['ID'], $_REQUEST['nameFirst'], $_REQUEST['nameLast'], $_REQUEST['usenrame'], $_REQUEST['password']);
+		
+		if ($result !== false || affectedRows())
+			print successBox("{$_REQUEST['nameFirst']} added.");
+	}
+
+
+
+
+
+
 	$TITLE = "Manage People"; 
 	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "Manage People"));
@@ -68,5 +82,20 @@
 	$peoplelist = Table::quick($peoplelist, true);
 	
 	
-	print mainContentBox("People", NULL, $peoplelist);	
+	print mainContentBox("People", NULL, $peoplelist);
+	
+	
+	
+	
+	$new[] = array("ID:", "<input type='text' name='ID'>");
+	$new[] = array("First Name:", "<input type='text' name='nameFirst'>");
+	$new[] = array("Last Name:", "<input type='text' name='nameLast'>");
+	$new[] = array("");
+	$new[] = array("Username:", "<input type='text' name='username'>", "leave blank to not allow login");
+	$new[] = array("Password:", "<input type='text' name='password'>", "leave blank to not allow login");
+	$new[] = array("");
+	$new[] = array("", "<input type='submit' name='add' value='Add'>");
+	
+	print mainContentBox("Add Person", NULL, form('add', 'POST', '', Table::quick($new)));
+	
 ?>
