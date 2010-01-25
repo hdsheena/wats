@@ -203,7 +203,8 @@
 	$history = Table::quick($history, true);
 	print mainContentBox("Device Assignment History", NULL, $history);		
 	
-	if ($ed && $device['statusID'] == 1)
+	//ick!
+	if ($ed && ($device['statusID'] == 1 || $device['statusID'] == 6 || $device['statusID']==8))
 	{	
 		
 		$rooms = getRooms();

@@ -53,6 +53,7 @@
 		$tmp->addChild(new MenuItem("Batch Add to Room", "{$CONFIG['webroot']}/?view=batch-add-room"));
 		$tmp->addChild(new MenuItem("Batch Add to Person", "{$CONFIG['webroot']}/?view=batch-add-person"));
 		$tmp->addChild(new MenuItem("Batch Add to Status", "{$CONFIG['webroot']}/?view=batch-add-status"));
+		$tmp->addChild(new MenuItem("Batch Unassign", "{$CONFIG['webroot']}/?view=batch-unassign"));
 	
 		$MENU[] = $tmp;	
 	}

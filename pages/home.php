@@ -39,6 +39,16 @@
 		print mainContentBox("Active but Homeless Devices", NULL, "<p>Devices in this list are marked 'Active' but have not been assigned to a person
 			or room. Please assign them or change their status as appropriate.<ul>$list</ul>");
 
+	$list = "";
+	$checkoutID = dbEnumerateRows(getStatusByName("Checkout"));
+	$checkout = getDevicesWithStatus($checkoutID['statusID']);
+	while ($device = dbEnumerateRows($checkout))
+	{
+		$list .= "<li><a href='{$CONFIG['webroot']}/?view=device&amp;deviceID={$device['deviceID']}'>{$device['deviceName']} ({$device['deviceID']})</a></li>";
+	}
+	if ($list)
+		print mainContentBox("Devices Available for Checkout", NULL, "<p>Devices in this list are marked 'Checkout' but have not been assigned to a person
+			or room.<ul>$list</ul>");
 
 
 	$status = dbEnumerateRows(getStatusByName("Lost"));
