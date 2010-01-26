@@ -24,6 +24,7 @@
 	if (!isset($_SESSION['user']) && ! isset ($CONFIG))
 		die("Please don't access this file directly. Use index.php");	
 
+	$ONLOAD="document.unassign.deviceID.focus();";
 	$TITLE = "Batch Unassign"; 
 	$BREADCRUMBS = array(array('name' => "Home", 'link' => "{$CONFIG['webroot']}"),
 						array('name' => "Batch Unassign"));
@@ -40,7 +41,7 @@
 	}	
 	
 	
-	$form[] = array("Device ID:", "<input type='text' name='deviceID'>");
+	$form[] = array("Device ID:", "<input type='text' id=deviceID name='deviceID'>");
 	$form[] = array("", "<input type='submit' name='unassign' value='Unassign'>");
 	
 	print mainContentBox("Unassign Device", NULL, form('unassign', 'POST', '', Table::quick($form)));
